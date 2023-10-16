@@ -27,6 +27,8 @@ public class Test{
             System.out.println("Ошибка ввода");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        } finally {
+            reader.close();
         }
     }
 }
