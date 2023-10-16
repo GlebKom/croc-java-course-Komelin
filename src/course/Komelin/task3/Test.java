@@ -3,6 +3,7 @@ package course.Komelin.task3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 public class Test {
 
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -35,10 +36,11 @@ public class Test {
     }
 
     public static int operationChoose() throws IOException {
-        System.out.print("Какую операцию хотите выбрать?\n" +
-                "1 - проверить, является ли число простым\n" +
-                "2 - проверить, является ли число числом-близнецом\n" +
-                "Ввод: ");
+        System.out.print("""
+                Какую операцию хотите выбрать?
+                1 - проверить, является ли число простым
+                2 - проверить, является ли число числом-близнецом
+                Ввод:\s""");
 
         String operation = reader.readLine();
 
