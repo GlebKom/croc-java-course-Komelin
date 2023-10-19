@@ -1,34 +1,30 @@
 package course.Komelin.task4;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-public class Test{
-
-    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    static ArithmeticProgression arithmeticProgression = new ArithmeticProgression();
-
-    public static void main(String[] args) throws IOException {
+public class Test {
+    public static void main(String[] args) {
+        ArithmeticProgression arithmeticProgression = new ArithmeticProgression();
 
         try {
-            System.out.print("Введите начальный элемент: ");
-            int start = Integer.parseInt(reader.readLine());
-
-            System.out.print("Введите разность арифметической прогрессии: ");
-            int difference = Integer.parseInt(reader.readLine());
-
-            System.out.print("Введите количество членов а.п.: ");
-            int cnt = Integer.parseInt(reader.readLine());
-
-            System.out.println("Сумма равна: " +
-                    arithmeticProgression.calculateProgression(start, difference, cnt));
-        } catch (NumberFormatException e) {
-            System.out.println("Ошибка ввода");
+            int[] initializedArgs = initArgs(args);
+            long arithmeticProgressionSum = arithmeticProgression.calculateProgression(initializedArgs[0],
+                    initializedArgs[1], initializedArgs[2]);
+            System.out.println("Сумма равна: " + arithmeticProgressionSum);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-        } finally {
-            reader.close();
         }
+    }
+
+    public static int[] initArgs(String[] args) throws NumberFormatException{
+        int[] resultArray = new int[args.length];
+
+        try {
+            for (int i = 0; i < args.length; i++) {
+                resultArray[i] = Integer.parseInt(args[i]);
+            }
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Введено не число!");
+        }
+
+        return resultArray;
     }
 }
