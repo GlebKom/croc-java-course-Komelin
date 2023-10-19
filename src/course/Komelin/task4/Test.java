@@ -14,7 +14,7 @@ public class Test {
         }
     }
 
-    public static int[] initArgs(String[] args) throws NumberFormatException{
+    private static int[] initArgs(String[] args) throws NumberFormatException{
         int[] resultArray = new int[args.length];
 
         try {
