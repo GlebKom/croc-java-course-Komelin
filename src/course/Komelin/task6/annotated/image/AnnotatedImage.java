@@ -1,7 +1,6 @@
 package course.Komelin.task6.annotated.image;
 
 import course.Komelin.task6.annotation.Annotation;
-import course.Komelin.task6.figure.Figure;
 
 import java.util.Optional;
 

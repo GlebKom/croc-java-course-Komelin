@@ -5,6 +5,9 @@ import course.Komelin.task5.washingmachine.types.WashingMachineTypes;
 
 public class WashingMachine extends Appliance {
 
+    {
+        setWashingMachineType(WashingMachineTypes.WASHING_MACHINE);
+    }
     private double volume;
 
     private double maxLoading;
