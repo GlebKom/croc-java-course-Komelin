@@ -23,4 +23,5 @@ public class ImportedWashingMachine extends WashingMachine implements Imported {
     public String getCountryManufacturer() {
         return countryManufacturer;
     }
+
 }

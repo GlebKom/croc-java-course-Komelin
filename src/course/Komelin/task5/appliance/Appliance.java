@@ -4,7 +4,7 @@ public abstract class Appliance {
 
     private String name;
 
-    private int price;
+    private double price;
 
     private double weight;
 
@@ -56,11 +56,11 @@ public abstract class Appliance {
         this.weight = weight;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -72,22 +72,16 @@ public abstract class Appliance {
         this.name = name;
     }
 
-    protected String getCommonDescription() {
+    public String getDescription() {
         return """
                 Цвет : %s
-                Вес : %.2f
+                Вес : %.2f кг
                 Высота : %.2f см
                 Ширина : %.2f см
                 Глубина : %.2f см
                 
-                Цена: %d рублей
-                
+                Цена: %.2f рублей
                 """.formatted(getColor(), getWeight(), getHeight(), getWidth(),
                 getDepth(), getPrice());
     }
-
-    protected abstract String getSpecialDescription();
-
-    public abstract String getDescription();
-
 }

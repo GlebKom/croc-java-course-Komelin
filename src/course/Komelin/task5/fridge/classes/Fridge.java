@@ -50,7 +50,7 @@ public class Fridge extends Appliance {
     }
 
     @Override
-    protected String getSpecialDescription() {
+    public String getDescription() {
         String message = """
                 Название : %s %s
                 Количество камер : %d
@@ -62,11 +62,6 @@ public class Fridge extends Appliance {
             message += "Объем морозильной камеры: %.2f л\n".formatted(getFreezerVolume());
         }
 
-        return message;
-    }
-
-    @Override
-    public String getDescription() {
-        return getSpecialDescription() + getCommonDescription();
+        return message + super.getDescription();
     }
 }

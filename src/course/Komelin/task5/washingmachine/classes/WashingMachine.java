@@ -49,17 +49,12 @@ public class WashingMachine extends Appliance {
     }
 
     @Override
-    protected String getSpecialDescription() {
+    public String getDescription() {
         return """
                 Название : %s %s
                 Объем барабана : %.2f л
                 Максимальная загрузка белья : %.2f кг
                 """.formatted(getWashingMachineType().getName(), getName(),
-                this.getVolume(), this.getMaxLoading());
-    }
-
-    @Override
-    public String getDescription() {
-        return getSpecialDescription() + getCommonDescription();
+                this.getVolume(), this.getMaxLoading()) + super.getDescription();
     }
 }

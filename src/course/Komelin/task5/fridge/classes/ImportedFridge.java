@@ -1,8 +1,9 @@
-package course.Komelin.task5.stove.classes;
+package course.Komelin.task5.fridge.classes;
 
 import course.Komelin.task5.appliance.Imported;
 
-public class ImportedStove extends Stove implements Imported {
+public class ImportedFridge extends Fridge implements Imported {
+
     private String countryManufacturer;
     private boolean hasWarranty;
 
@@ -13,6 +14,7 @@ public class ImportedStove extends Stove implements Imported {
     public void setHasWarranty(boolean hasWarranty) {
         this.hasWarranty = hasWarranty;
     }
+
     @Override
     public boolean isHasWarranty() {
         return hasWarranty;
@@ -22,5 +24,4 @@ public class ImportedStove extends Stove implements Imported {
     public String getCountryManufacturer() {
         return countryManufacturer;
     }
-
 }

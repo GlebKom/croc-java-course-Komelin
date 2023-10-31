@@ -39,17 +39,13 @@ public class Stove extends Appliance {
     }
 
     @Override
-    protected String getSpecialDescription() {
+    public String getDescription() {
         return """
                 Название : %s %s
                 Количество конфорок : %d
                 Мощность конфорок : %.2f
                 """.formatted(getStoveType().getName(), getName(), getBurnerCount(),
-                getBurnerPower());
+                getBurnerPower()) + super.getDescription();
     }
 
-    @Override
-    public String getDescription() {
-        return getSpecialDescription() + getCommonDescription();
-    }
 }
