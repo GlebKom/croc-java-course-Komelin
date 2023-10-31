@@ -28,7 +28,7 @@ public class Circle extends Figure{
     }
 
     @Override
-    public String getCoords() {
+    public String toString() {
         return "Circle (%.1f, %.1f), %.1f".formatted(x0, y0, radius);
     }
 }

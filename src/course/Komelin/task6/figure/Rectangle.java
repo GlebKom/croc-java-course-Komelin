@@ -24,7 +24,7 @@ public class Rectangle extends Figure{
     }
 
     @Override
-    public String getCoords() {
+    public String toString() {
         return "Rectangle (%.1f, %.1f), (%.1f, %.1f)".formatted(x1, y1, x2, y2);
     }
 
