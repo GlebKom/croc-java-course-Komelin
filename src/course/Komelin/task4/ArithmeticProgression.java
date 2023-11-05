@@ -12,7 +12,7 @@ public class ArithmeticProgression {
             throw new IllegalArgumentException("Разность А.П. должна быть в отрезке [-10000; 10000]");
         }
 
-        if (start < -10000 || start > 1000) {
+        if (start < -10000 || start > 10000) {
             throw new IllegalArgumentException("Начальный элемент должен быть в отрезке [-10000; 10000]");
         }
 

@@ -2,7 +2,6 @@ package course.Komelin.task7.order;
 
 import course.Komelin.task5.appliance.Appliance;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +20,7 @@ public class Notification {
         ZonedDateTime expirationDate = order.getCreationDateTime().plusWeeks(2);
 
         StringBuilder notification = new StringBuilder();
-        notification.append("Уважаемый %s!\n\n".formatted(order.getName()));
+        notification.append("Уважаемый %s!\n\n".formatted(order.getClientName()));
         notification.append("Рады сообщить, что Ваш заказ №%s готов к выдаче.\n\n".formatted(order.getOrderNumber()));
         notification.append("Список заказа:\n\n");
         notification.append("--------------------------------------------\n");

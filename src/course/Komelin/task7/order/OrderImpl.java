@@ -12,13 +12,14 @@ import course.Komelin.task7.exceptions.OrderNotCollectedException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OrderImpl implements Order {
 
-    private String name;
+    private String clientName;
     private final String phoneNumber;
     private final Instant creationDateTime;
     private Instant collectionDateTime;
@@ -45,7 +46,7 @@ public class OrderImpl implements Order {
             throw new IllegalArgumentException("Appliances' count should be less or equals 75");
         }
 
-        this.name = name;
+        this.clientName = name;
         this.orderList = orderList;
         this.phoneNumber = phoneNumber;
         this.creationDateTime = Instant.now();
@@ -81,36 +82,40 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getClientName() {
+        return clientName;
     }
 
     @Override
     public String getOrderNumber() {
-        StringBuilder orderNumber = new StringBuilder();
-        ZonedDateTime creationDate = getCreationDateTime();
-        String year = String.valueOf(creationDate.getYear());
-        String month = String.valueOf(creationDate.getMonthValue());
-        String day = String.valueOf(creationDate.getDayOfMonth());
-        String hours = String.valueOf(creationDate.getHour());
-        String minutes = String.valueOf(creationDate.getMinute());
-        String seconds = String.valueOf(creationDate.getSecond());
+        if (orderNumber == null) {
+            StringBuilder orderNumberBuilder = new StringBuilder();
+            ZonedDateTime creationDate = getCreationDateTime();
+            String year = String.valueOf(creationDate.getYear());
+            String month = String.valueOf(creationDate.getMonthValue());
+            String day = String.valueOf(creationDate.getDayOfMonth());
+            String hours = String.valueOf(creationDate.getHour());
+            String minutes = String.valueOf(creationDate.getMinute());
+            String seconds = String.valueOf(creationDate.getSecond());
 
-        orderNumber.append(year.substring(2));
-        orderNumber.append(month.length() == 1 ? "0" : "").append(month);
-        orderNumber.append(day.length() == 1 ? "0" : "").append(day);
-        orderNumber.append(hours.length() == 1 ? "0" : "").append(hours);
-        orderNumber.append(minutes.length() == 1 ? "0" : "").append(minutes);
-        orderNumber.append(seconds.length() == 1 ? "0" : "").append(seconds);
-        orderNumber.append(phoneNumber.substring(phoneNumber.length() - 4));
+            orderNumberBuilder.append(year.substring(2));
+            orderNumberBuilder.append(month.length() == 1 ? "0" : "").append(month);
+            orderNumberBuilder.append(day.length() == 1 ? "0" : "").append(day);
+            orderNumberBuilder.append(hours.length() == 1 ? "0" : "").append(hours);
+            orderNumberBuilder.append(minutes.length() == 1 ? "0" : "").append(minutes);
+            orderNumberBuilder.append(seconds.length() == 1 ? "0" : "").append(seconds);
+            orderNumberBuilder.append(phoneNumber.substring(phoneNumber.length() - 4));
 
-        return orderNumber.toString();
+            orderNumber = orderNumberBuilder.toString();
+        }
+
+        return orderNumber;
 
     }
 
     @Override
     public List<Appliance> getOrderList() {
-        return orderList;
+        return new ArrayList<>(orderList);
     }
 
     @Override
@@ -119,8 +124,8 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     @Override

@@ -16,11 +16,11 @@ public interface Order {
     ZonedDateTime getCollectionDateTime() throws OrderNotCollectedException;
     ZonedDateTime getProducingDateTime() throws OrderNotProducedException;
     String getPhoneNumber();
-    String getName();
+    String getClientName();
     String getOrderNumber();
     List<Appliance> getOrderList();
     OrderStatus getOrderStatus();
-    void setName(String name);
+    void setClientName(String clientName);
     void setDateTimeOffset(int hours);
     void collect();
     void produce();

@@ -64,6 +64,10 @@ public class Test {
     }
 
     public static void main(String[] args) throws OrderNotCollectedException {
+
+        // Поставили UTC+3, т.к. именно такой время в МСК. По-хорошему, это значение нужно брать из системы / аккаунта
+        // самого пользователя, но пока просто такая "заглушка"
+        order.setDateTimeOffset(3);
         Notification notification = new Notification(order);
         System.out.println(notification);
 
