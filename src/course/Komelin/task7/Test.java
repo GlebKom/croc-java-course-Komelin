@@ -68,6 +68,9 @@ public class Test {
         // Поставили UTC+3, т.к. именно такой время в МСК. По-хорошему, это значение нужно брать из системы / аккаунта
         // самого пользователя, но пока просто такая "заглушка"
         order.setDateTimeOffset(3);
+
+        order.getOrderList().clear();
+
         Notification notification = new Notification(order);
         System.out.println(notification);
 

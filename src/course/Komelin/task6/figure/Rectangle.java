@@ -23,7 +23,6 @@ public class Rectangle extends Figure{
         return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
     }
 
-    @Override
     public String toString() {
         return "Rectangle (%.1f, %.1f), (%.1f, %.1f)".formatted(x1, y1, x2, y2);
     }

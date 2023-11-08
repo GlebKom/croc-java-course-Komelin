@@ -155,7 +155,7 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public boolean isExpired() {
+    public boolean checkOrderAvailability() {
         ZonedDateTime creationDateTime = getCreationDateTime();
         if (ZonedDateTime.now(ZoneId.of(getZoneId())).isAfter(creationDateTime.plusWeeks(2))) {
             orderStatus = OrderStatus.EXPIRED;
@@ -171,7 +171,7 @@ public class OrderImpl implements Order {
                 return false;
             }
             case COLLECTED -> {
-                if (!isExpired()) {
+                if (!checkOrderAvailability()) {
                     return true;
                 } else {
                     throw new OrderIsExpiredException(this);

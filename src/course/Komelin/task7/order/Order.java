@@ -24,7 +24,7 @@ public interface Order {
     void setDateTimeOffset(int hours);
     void collect();
     void produce();
-    boolean isExpired();
+    boolean checkOrderAvailability();
     boolean canBeProduced() throws OrderIsExpiredException, OrderIsClosedException;
 
 }

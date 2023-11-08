@@ -1,5 +1,7 @@
 package course.Komelin.task5.appliance;
 
+import java.text.NumberFormat;
+
 public abstract class Appliance {
 
     private String name;
@@ -73,6 +75,7 @@ public abstract class Appliance {
     }
 
     public String getDescription() {
+        NumberFormat format = NumberFormat.getCurrencyInstance();
         return """
                 Цвет : %s
                 Вес : %.2f кг
@@ -80,8 +83,9 @@ public abstract class Appliance {
                 Ширина : %.2f см
                 Глубина : %.2f см
                 
-                Цена: %.2f рублей
-                """.formatted(getColor(), getWeight(), getHeight(), getWidth(),
-                getDepth(), getPrice());
+                Цена:\s""".formatted(getColor(), getWeight(), getHeight(), getWidth(),
+                getDepth())
+                + format.format(getPrice())
+                + "\n";
     }
 }

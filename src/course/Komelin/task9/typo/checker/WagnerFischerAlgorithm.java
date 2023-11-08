@@ -1,10 +1,5 @@
 package course.Komelin.task9.typo.checker;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-import static java.util.Collections.min;
-
 public class WagnerFischerAlgorithm {
 
     /**
