@@ -73,6 +73,5 @@ public class Test {
 
         Notification notification = new Notification(order);
         System.out.println(notification);
-
     }
 }
