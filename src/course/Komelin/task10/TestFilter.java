@@ -44,17 +44,16 @@ public class TestFilter {
             new Comment("Рецепт пирога от бабушки", "Просто нужно делать с любовью <3")
     ));
 
-    static BlackListFilter<String> blackListFilterString = new BlackListFilter<String>() {
+    static BlackListFilter<String> blackListFilterString = new BlackListFilter<>() {
     };
 
-    static BlackListFilter<Comment> blackListFilterComment = new BlackListFilter<Comment>() {
+    static BlackListFilter<Comment> blackListFilterComment = new BlackListFilter<>() {
     };
 
     @Test
     public void testBlackListFilterWithCommentsAsString() {
         Iterable<String> result = blackListFilterString.filterComments((comment) -> {
-            List<String> blackListCopy = new ArrayList<>(blackList);
-            blackListCopy.forEach(String::toUpperCase);
+            List<String> blackListCopy = blackList.stream().map(String::toUpperCase).toList();
 
             for (String word : blackListCopy) {
                 if (comment.toUpperCase().contains(word)) {
@@ -71,8 +70,10 @@ public class TestFilter {
     @Test
     public void testBlackListFilterWithCommentsAsClass() {
         Iterable<Comment> result = blackListFilterComment.filterComments((comment) -> {
-            for (String word : blackList) {
-                if (comment.getContent().contains(word) || comment.getTitle().contains(word)) {
+            List<String> blackListCopy = blackList.stream().map(String::toUpperCase).toList();
+            for (String word : blackListCopy) {
+                if (comment.getContent().toUpperCase().contains(word)
+                        || comment.getTitle().toUpperCase().contains(word)) {
                     return false;
                 }
             }
