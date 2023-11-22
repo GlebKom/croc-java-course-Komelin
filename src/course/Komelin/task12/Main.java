@@ -3,6 +3,7 @@ package course.Komelin.task12;
 import javax.sound.midi.Soundbank;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
 
@@ -43,5 +44,6 @@ public class Main {
                 По состоянию на апрель 2021 года проверены все натуральные числа до 9 789 690 303 392 599 179 037 включительно,
                 и каждое из них продемонстрировало соответствие гипотезе Коллатца.
                  """);
+
     }
 }

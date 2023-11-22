@@ -17,7 +17,7 @@ public class Participant implements Runnable {
                 lot.isStarted() &&
                 (lot.getProposerName() == null || !lot.getProposerName().equals(name))) {
             Random random = new Random();
-            lot.bet(name, lot.getCurrentPrice() + random.nextLong(100, 1000));
+            lot.bet(name, lot.getCurrentPrice() + random.nextLong(1000, 10000));
         }
     }
 

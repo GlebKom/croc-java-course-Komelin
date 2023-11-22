@@ -19,7 +19,7 @@ public class Auction {
         makeAnAnnouncement(lot);
         prepareParticipants(participants);
         prepareLot(lot);
-        checkPriceChanging(lot);
+        checkPriceChangingOrTimeExceeding(lot);
     }
 
     private Lot readLotFromFile(File file) throws IOException {
@@ -48,8 +48,8 @@ public class Auction {
         lot.startBargaining();
     }
 
-    private void checkPriceChanging(Lot lot) {
-        new Thread(new PriceChangingChecker(lot)).start();
+    private void checkPriceChangingOrTimeExceeding(Lot lot) {
+        new Thread(new PriceChangingOrTimeExceededChecker(lot)).start();
     }
 
     private void makeAnAnnouncement(Lot lot) {
@@ -57,9 +57,9 @@ public class Auction {
         System.out.println("Начальная цена: " + lot.getCurrentPrice());
     }
 
-    private static class PriceChangingChecker implements Runnable{
+    private static class PriceChangingOrTimeExceededChecker implements Runnable{
         Lot lot;
-        private PriceChangingChecker(Lot lot) {
+        private PriceChangingOrTimeExceededChecker(Lot lot) {
             this.lot = lot;
         }
 
@@ -69,15 +69,17 @@ public class Auction {
             while (true) {
                 long price = lot.getCurrentPrice();
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 if (lot.getCurrentPrice() == price) {
-                    lot.stopBargaining();
-                    System.out.println("Торги окончены! Победитель: " + lot.getWinnerName());
-                    System.out.println("Итоговая цена: " + lot.getCurrentPrice());
-                    break;
+                    synchronized (lot) {
+                        lot.stopBargaining();
+                        System.out.println("Торги окончены! Победитель: " + lot.getWinnerName());
+                        System.out.println("Итоговая цена: " + lot.getCurrentPrice());
+                        break;
+                    }
                 }
             }
         }

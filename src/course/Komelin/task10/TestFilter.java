@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,24 +45,19 @@ public class TestFilter {
     ));
 
     static BlackListFilter<String> blackListFilterString = new BlackListFilter<String>() {
-        @Override
-        public Iterable<String> filterComments(Predicate<String> condition, Iterable<String> comments) {
-            return BlackListFilter.super.filterComments(condition, comments);
-        }
     };
 
     static BlackListFilter<Comment> blackListFilterComment = new BlackListFilter<Comment>() {
-        @Override
-        public Iterable<Comment> filterComments(Predicate<Comment> condition, Iterable<Comment> comments) {
-            return BlackListFilter.super.filterComments(condition, comments);
-        }
     };
 
     @Test
     public void testBlackListFilterWithCommentsAsString() {
         Iterable<String> result = blackListFilterString.filterComments((comment) -> {
-            for (String word : blackList) {
-                if (comment.contains(word)) {
+            List<String> blackListCopy = new ArrayList<>(blackList);
+            blackListCopy.forEach(String::toUpperCase);
+
+            for (String word : blackListCopy) {
+                if (comment.toUpperCase().contains(word)) {
                     return false;
                 }
             }
