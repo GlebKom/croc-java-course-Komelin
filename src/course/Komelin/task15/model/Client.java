@@ -1,5 +1,7 @@
 package course.Komelin.task15.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
@@ -12,11 +14,18 @@ public class Client {
 
     private String phoneNumber;
 
+    private List<Pet> pets;
+
+    public Client() {
+
+    }
+
     public Client(int id, String firstName, String secondName, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.phoneNumber = phoneNumber;
+        this.pets = new ArrayList<>();
     }
 
     public int getId() {
@@ -51,6 +60,9 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<Pet> getPets() {
+        return pets;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

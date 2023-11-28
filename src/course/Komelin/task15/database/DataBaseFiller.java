@@ -3,6 +3,8 @@ package course.Komelin.task15.database;
 import course.Komelin.task15.model.Client;
 import course.Komelin.task15.model.Pet;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,28 +20,43 @@ public class DataBaseFiller {
     }
 
     public void insertClients(Collection<Client> clients) throws SQLException {
-        String insertClient = "INSERT INTO Client VALUES(?, ?, ?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(insertClient);
+        String insertClient = "INSERT INTO Client(first_name, second_name, phone_number) VALUES(?, ?, ?)";
+        PreparedStatement preparedStatementClient = connection.prepareStatement(insertClient);
+
         for (Client client : clients) {
-            preparedStatement.setInt(1, client.getId());
-            preparedStatement.setString(2, client.getFirstName());
-            preparedStatement.setString(3, client.getSecondName());
-            preparedStatement.setString(4, client.getPhoneNumber());
+            preparedStatementClient.setString(1, client.getFirstName());
+            preparedStatementClient.setString(2, client.getSecondName());
+            preparedStatementClient.setString(3, client.getPhoneNumber());
+            preparedStatementClient.addBatch();
+        }
+
+        preparedStatementClient.executeBatch();
+    }
+
+    public void insertPets(Collection<Pet> pets) throws SQLException {
+        String insertPet = "INSERT INTO Pet(pet_name, age) VALUES(? ,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(insertPet);
+        for (Pet pet : pets) {
+            preparedStatement.setString(1, pet.getPetName());
+            preparedStatement.setInt(2, pet.getAge());
             preparedStatement.addBatch();
         }
         preparedStatement.executeBatch();
     }
 
-    public void insertPets(Collection<Pet> pets) throws SQLException {
-        String insertPet = "INSERT INTO Pet VALUES(?, ?, ?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(insertPet);
-        for (Pet pet : pets) {
-            preparedStatement.setInt(1, pet.getMedCardNumber());
-            preparedStatement.setString(2, pet.getPetName());
-            preparedStatement.setInt(3, pet.getAge());
-            preparedStatement.setInt(4, pet.getOwnerId());
-            preparedStatement.addBatch();
+    public void createRelations(List<Client> clients) throws SQLException {
+        String insertClientToPet = "INSERT INTO Client_to_pet VALUES(?, ?)";
+        PreparedStatement preparedStatementClientToPet = connection.prepareStatement(insertClientToPet);
+
+        for (Client client : clients) {
+            for (Pet pet : client.getPets()) {
+                preparedStatementClientToPet.setInt(1, client.getId());
+                preparedStatementClientToPet.setInt(2, pet.getMedCardNumber());
+                preparedStatementClientToPet.addBatch();
+            }
         }
-        preparedStatement.executeBatch();
+
+        preparedStatementClientToPet.executeBatch();
+
     }
 }

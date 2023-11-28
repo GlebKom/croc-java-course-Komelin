@@ -6,14 +6,16 @@ import course.Komelin.task15.database.DataBaseFiller;
 import course.Komelin.task15.database.DateBaseCreator;
 import course.Komelin.task15.model.Client;
 import course.Komelin.task15.model.Pet;
+import course.Komelin.task16.dao.ClientDao;
+import course.Komelin.task16.dao.PetDao;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -27,11 +29,28 @@ public class Main {
             DateBaseCreator dateBaseCreator = new DateBaseCreator(connection);
             dateBaseCreator.createClientTable();
             dateBaseCreator.createPetTable();
+            dateBaseCreator.createClientsRelatedPets();
 
             DataBaseFiller dataBaseFiller = new DataBaseFiller(connection);
-            dataBaseFiller.insertClients(new HashSet<>(clients));
-            dataBaseFiller.insertPets(new HashSet<>(pets));
+            dataBaseFiller.insertClients(clients);
+            dataBaseFiller.insertPets(pets);
+            dataBaseFiller.createRelations(clients);
 
+            ClientDao clientDao = new ClientDao(connection);
+            for (Client client : clientDao.getAllClients()) {
+                System.out.println(client);
+            }
+
+            PetDao petDao = new PetDao(connection);
+            for (Pet pet : petDao.getAllPets()) {
+                System.out.println(pet);
+            }
+
+            for (Map.Entry<Client, List<Pet>> entry: clientDao.getAllClientsWithTheirPet().entrySet()) {
+                System.out.println("\nВладелец: " + entry.getKey().getFirstName() + " " + entry.getKey().getSecondName());
+                System.out.println("Питомцы: ");
+                entry.getValue().forEach(System.out::println);
+            }
 
         } catch (SQLException | IOException e) {
             System.out.println(e.getMessage());
@@ -40,11 +59,11 @@ public class Main {
 
     private static List<Client> readClients(String path) throws IOException {
         File file = new File(path);
-        return ClientCsvReader.readClientsCsv(file);
+        return ClientCsvReader.readUniqueClientsCsv(file);
     }
 
     private static List<Pet> readPets(String path) throws IOException {
         File file = new File(path);
-        return PetCsvReader.readPetsCsv(file);
+        return PetCsvReader.readUniquePetsCsv(file);
     }
 }

@@ -21,7 +21,7 @@ public class DateBaseCreator {
         Statement statement = connection.createStatement();
         statement.execute("""
                           CREATE TABLE IF NOT EXISTS Client(
-                          id int PRIMARY KEY,
+                          id IDENTITY NOT NULL PRIMARY KEY,
                           first_name varchar NOT NULL,
                           second_name varchar NOT NULL,
                           phone_number varchar UNIQUE)""");
@@ -31,10 +31,19 @@ public class DateBaseCreator {
         Statement statement = connection.createStatement();
         statement.execute("""
                           CREATE TABLE IF NOT EXISTS Pet(
-                          id int PRIMARY KEY,
+                          id IDENTITY NOT NULL PRIMARY KEY,
                           pet_name varchar NOT NULL,
-                          age int, CHECK (age >= 0),
-                          owner_id int,
-                          FOREIGN KEY (owner_id) REFERENCES Client(id) ON DELETE CASCADE)""");
+                          age int, CHECK (age >= 0))""");
+    }
+
+    public void createClientsRelatedPets() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("""
+                          CREATE TABLE IF NOT EXISTS Client_to_pet(
+                          client_id bigint NOT NULL,
+                          pet_id bigint NOT NULL,
+                          FOREIGN KEY (client_id) REFERENCES Client(id) ON DELETE CASCADE,
+                          FOREIGN KEY (pet_id) REFERENCES Pet(id) ON DELETE CASCADE,
+                          PRIMARY KEY(client_id, pet_id))""");
     }
 }

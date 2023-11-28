@@ -1,5 +1,8 @@
 package course.Komelin.task15.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class Pet {
@@ -9,14 +12,17 @@ public class Pet {
     private String petName;
 
     private int age;
+    private List<Client> owners;
 
-    private int ownerId;
+    public Pet() {
+        this.owners = new ArrayList<>();
+    }
 
-    public Pet(int medCardNumber, String name, int age, int ownerId) {
+    public Pet(int medCardNumber, String name, int age) {
         this.medCardNumber = medCardNumber;
         this.petName = name;
         this.age = age;
-        this.ownerId = ownerId;
+        this.owners = new ArrayList<>();
     }
 
     public int getMedCardNumber() {
@@ -43,12 +49,12 @@ public class Pet {
         this.age = age;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public List<Client> getOwners() {
+        return owners;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwners(List<Client> owners) {
+        this.owners = owners;
     }
 
     @Override
@@ -70,7 +76,6 @@ public class Pet {
                 "medCardNumber=" + medCardNumber +
                 ", name='" + petName + '\'' +
                 ", age=" + age +
-                ", ownerId=" + ownerId +
                 '}';
     }
 }
